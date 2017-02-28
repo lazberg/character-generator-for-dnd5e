@@ -1,4 +1,6 @@
-
+var race = 0;
+var raceList = ["human", "high elf", "rock gnome", "half-orc"];
+var raceBonus = [0, 0, 0, 0, 0, 0];
 
 function DiceRoll() {
 	var dice = prompt("What dice do you want to roll?");
@@ -10,7 +12,29 @@ function Dice(d) {
 	return Math.floor(Math.random() * (d-1 + 1)) + 1;
 }
 
+function RollRace(){
+	race = Math.floor((Math.random() *4));
+	document.getElementById('Race').innerHTML=raceList[race];
+	console.log(raceList[race]);
+	if (raceList[race] == "human" ) { 
+		raceBonus = [1, 1, 1, 1, 1, 1];
+	}
+	else if (raceList[race] == "high elf") {
+		raceBonus = [0, 2, 0, 1, 0, 0];
+	}
+	else if (raceList[race] == "rock gnome") {
+		raceBonus = [0, 0, 1, 2, 0, 0];
+	}
+	else if (raceList[race] == "half-orc") {
+		raceBonus = [2, 0, 1, 0, 0, 0];
+	}
+	else {
+		raceBonus = [0, 0, 0, 0, 0, 0];
+	}
+}
+
 function RollAbility(){
+	RollRace();
 	var abilityScores = [];
 	var abilityModifier = [];
 	for(var i = 0;i<6;i++){
@@ -23,7 +47,7 @@ function RollAbility(){
 		roll2 = Dice(6);
 		roll3 = Dice(6);
 		roll4 = Dice(6);
-		rollTotal = roll1+roll2+roll3+roll4-Math.min(roll1,roll2,roll3,roll4);
+		rollTotal = roll1+roll2+roll3+roll4-Math.min(roll1,roll2,roll3,roll4)+raceBonus[i];
 		abilityScores.push(rollTotal);
 		abilityModifier.push(GetModifier(rollTotal));
 	}
