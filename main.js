@@ -1,6 +1,32 @@
 var race = 0;
-var raceList = ["human", "high elf", "rock gnome", "half-orc"];
 var raceBonus = [0, 0, 0, 0, 0, 0];
+
+// ABILITIES: STR, DEX, CON, INT, WIS, CHA
+var hillDwarf = {race:"Hill Dwarf", ability:[0, 0, 2, 0, 1, 0], speed:25};
+var mountainDwarf = {race:"Mountain Dwarf", ability:[2, 0, 2, 0, 0, 0], speed:25};
+var highElf = {race:"High Elf", ability:[0, 2, 0, 1, 0, 0], speed:30};
+var woodElf = {race:"Wood Elf", ability:[0, 2, 0, 0, 1, 0], speed:35};
+var darkElf = {race:"Dark Elf (Drow)", ability:[0, 2, 0, 0, 0, 1], speed:30};
+var lightfootHalfling = {race:"Lightfoot Halfling", ability:[0, 2, 0, 0, 0, 1], speed:25};
+var stoutHalfling = {race:"Stout Halfling", ability:[0, 2, 1, 0, 0, 0], speed:25};
+var human = {race:"Human", ability:[1, 1, 1, 1, 1, 1], speed:30};
+var dragonborn = {race:"Dragonborn", ability:[2, 0, 0, 0, 0, 1], speed:30};
+var forestGnome = {race:"Forest Gnome", ability:[0, 1, 0, 2, 0, 0], speed:25};
+var rockGnome = {race:"Rock Gnome", ability:[0, 0, 1, 2, 0, 0], speed:25};
+var halfElf = {race:"Half-Elf", ability:[0, 1, 1, 0, 0, 2], speed:30};
+var halfOrc = {race:"Half-Orc", ability:[2, 0, 1, 0, 0, 0], speed:30};
+var tiefling = {race:"Tiefling", ability:[0, 0, 0, 1, 0, 2], speed:30};
+// var blank = {race:"Unknown Race", ability:[0, 0, 0, 0, 0, 0], speed:30};
+var racials = [human, highElf, rockGnome, halfOrc, mountainDwarf, hillDwarf, darkElf, woodElf, lightfootHalfling, stoutHalfling, dragonborn, forestGnome, halfElf, tiefling];
+
+var firstName = "No";
+var lastName = "Face";
+
+var elfMale = ["Adran", "Aelar", "Aramil", "Arannis", "Aust"];
+var elfFemale = ["Adrie", "Althaea", "Anastrianna", "Andraste", "Antinua"];
+var elfSurname = ["Amakiir", "Amastacia", "Galanodel", "Holimion", "Ilphelkiir", "Liadon"];
+var elfNames = [elfMale, elfFemale, elfSurname];
+var sex = 0;
 
 function DiceRoll() {
 	var dice = prompt("What dice do you want to roll?");
@@ -8,29 +34,29 @@ function DiceRoll() {
 	console.log( diceRoll );
 }
 
+function RollGender(){
+	sex = Math.floor((Math.random() *2));
+}
+function RollName(gender){
+	var maleOrFemale = elfNames[gender];
+	var surname = elfNames[2];
+	firstName = maleOrFemale[Math.floor((Math.random() *maleOrFemale.length))];
+	lastName = surname[[Math.floor((Math.random() *surname.length))]];
+	console.log(firstName + " " + lastName);
+}
+
 function Dice(d) {
 	return Math.floor(Math.random() * (d-1 + 1)) + 1;
 }
 
-function RollRace(){
-	race = Math.floor((Math.random() *4));
-	document.getElementById('Race').innerHTML=raceList[race];
-	console.log(raceList[race]);
-	if (raceList[race] == "human" ) { 
-		raceBonus = [1, 1, 1, 1, 1, 1];
-	}
-	else if (raceList[race] == "high elf") {
-		raceBonus = [0, 2, 0, 1, 0, 0];
-	}
-	else if (raceList[race] == "rock gnome") {
-		raceBonus = [0, 0, 1, 2, 0, 0];
-	}
-	else if (raceList[race] == "half-orc") {
-		raceBonus = [2, 0, 1, 0, 0, 0];
-	}
-	else {
-		raceBonus = [0, 0, 0, 0, 0, 0];
-	}
+function RollRace() {
+	RollGender();
+	RollName(sex);
+	race = racials[Math.floor((Math.random() *racials.length))];
+	console.log(race);
+	document.getElementById('Race').innerHTML=race.race;
+	document.getElementById('Name').innerHTML=firstName+" "+lastName;
+	raceBonus = race.ability;
 }
 
 function RollAbility(){
