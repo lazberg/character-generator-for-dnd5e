@@ -1,32 +1,58 @@
 var race = 0;
 var raceBonus = [0, 0, 0, 0, 0, 0];
-
-// ABILITIES: STR, DEX, CON, INT, WIS, CHA
-var hillDwarf = {race:"Hill Dwarf", ability:[0, 0, 2, 0, 1, 0], speed:25};
-var mountainDwarf = {race:"Mountain Dwarf", ability:[2, 0, 2, 0, 0, 0], speed:25};
-var highElf = {race:"High Elf", ability:[0, 2, 0, 1, 0, 0], speed:30};
-var woodElf = {race:"Wood Elf", ability:[0, 2, 0, 0, 1, 0], speed:35};
-var darkElf = {race:"Dark Elf (Drow)", ability:[0, 2, 0, 0, 0, 1], speed:30};
-var lightfootHalfling = {race:"Lightfoot Halfling", ability:[0, 2, 0, 0, 0, 1], speed:25};
-var stoutHalfling = {race:"Stout Halfling", ability:[0, 2, 1, 0, 0, 0], speed:25};
-var human = {race:"Human", ability:[1, 1, 1, 1, 1, 1], speed:30};
-var dragonborn = {race:"Dragonborn", ability:[2, 0, 0, 0, 0, 1], speed:30};
-var forestGnome = {race:"Forest Gnome", ability:[0, 1, 0, 2, 0, 0], speed:25};
-var rockGnome = {race:"Rock Gnome", ability:[0, 0, 1, 2, 0, 0], speed:25};
-var halfElf = {race:"Half-Elf", ability:[0, 1, 1, 0, 0, 2], speed:30};
-var halfOrc = {race:"Half-Orc", ability:[2, 0, 1, 0, 0, 0], speed:30};
-var tiefling = {race:"Tiefling", ability:[0, 0, 0, 1, 0, 2], speed:30};
-// var blank = {race:"Unknown Race", ability:[0, 0, 0, 0, 0, 0], speed:30};
-var racials = [human, highElf, rockGnome, halfOrc, mountainDwarf, hillDwarf, darkElf, woodElf, lightfootHalfling, stoutHalfling, dragonborn, forestGnome, halfElf, tiefling];
-
 var firstName = "No";
 var lastName = "Face";
+var sex = 0;
+
+// NAMES
+var namePool = [elfNames, humanNames, dwarfNames]
 
 var elfMale = ["Adran", "Aelar", "Aramil", "Arannis", "Aust"];
 var elfFemale = ["Adrie", "Althaea", "Anastrianna", "Andraste", "Antinua"];
 var elfSurname = ["Amakiir", "Amastacia", "Galanodel", "Holimion", "Ilphelkiir", "Liadon"];
 var elfNames = [elfMale, elfFemale, elfSurname];
-var sex = 0;
+
+var dwarfMale = [ "Adrik", "Alberich", "Baern", "Barendd", "Brottor", "Bruenor", "Dain", "Darrak", "Delg", "Eberk", "Einkil", "Fargrim", "Flint", "Gardain", "Harbek", "Kildrak", "Morgran", "Orsik", "Oskar", "Rangrim", "Rurik", "Taklinn", "Thoradin", "Thorin", "Tordek", "Traubon", "Travok", "Ulfgar", "Veit", "Vondal" ];
+var dwarfFemale = [ "Amber", "Artin", "Audhild", "Bardryn", "Dagnal", "Diesa", "Eldeth", "Falkrunn", "Finellen", "Gunnloda", "Gurdis", "Helja", "Hlin", "Kathra", "Kristryd", "Ilde", "Liftrasa", "Mardred", "Riswynn", "Sannl", "Torbera", "Torgga", "Vistra" ];
+var dwarfSurname = [ "Balderk", "Battlehammer", "Brawnanvil", "Dankil", "Fireforge", "Frostbeard", "Gorunn", "Holderhek", "Ironfist", "Loderr", "Lutgehr", "Rumnaheim", "Strakeln", "Torunn", "Ungart" ];
+var dwarfNames = [dwarfMale, dwarfFemale, dwarfSurname];
+
+var humanMale = [ "Bor", "Fodel", "Glar", "Grigor", "Igan", "Ivor", "Kosef", "Mival", "Orel", "Pavel", "Sergor" ];
+var humanFemale = [ "Alethra", "Kara", "Katernin", "Mara", "Natali", "Olma", "Tana", "Zora" ];
+var humanSurname = [ "Bersk", "Chernin", "Dotsk", "Kulenov", "Marsk", "Nemetsk", "Shemov", "Starag" ];
+var humanNames = [humanMale, humanFemale, humanSurname];
+
+// ABILITIES: STR, DEX, CON, INT, WIS, CHA
+var hillDwarf = {race:"Hill Dwarf", ability:[0, 0, 2, 0, 1, 0], speed:25, namepool:dwarfNames};
+var mountainDwarf = {race:"Mountain Dwarf", ability:[2, 0, 2, 0, 0, 0], speed:25, namepool:dwarfNames};
+var highElf = {race:"High Elf", ability:[0, 2, 0, 1, 0, 0], speed:30, namepool:elfNames};
+var woodElf = {race:"Wood Elf", ability:[0, 2, 0, 0, 1, 0], speed:35, namepool:elfNames};
+var darkElf = {race:"Dark Elf (Drow)", ability:[0, 2, 0, 0, 0, 1], speed:30, namepool:elfNames};
+var lightfootHalfling = {race:"Lightfoot Halfling", ability:[0, 2, 0, 0, 0, 1], speed:25, namepool:humanNames};
+var stoutHalfling = {race:"Stout Halfling", ability:[0, 2, 1, 0, 0, 0], speed:25, namepool:humanNames};
+var human = {race:"Human", ability:[1, 1, 1, 1, 1, 1], speed:30, namepool:humanNames};
+var dragonborn = {race:"Dragonborn", ability:[2, 0, 0, 0, 0, 1], speed:30, namepool:humanNames};
+var forestGnome = {race:"Forest Gnome", ability:[0, 1, 0, 2, 0, 0], speed:25, namepool:humanNames};
+var rockGnome = {race:"Rock Gnome", ability:[0, 0, 1, 2, 0, 0], speed:25, namepool:humanNames};
+var halfElf = {race:"Half-Elf", ability:[0, 1, 1, 0, 0, 2], speed:30, namepool:humanNames};
+var halfOrc = {race:"Half-Orc", ability:[2, 0, 1, 0, 0, 0], speed:30, namepool:humanNames};
+var tiefling = {race:"Tiefling", ability:[0, 0, 0, 1, 0, 2], speed:30, namepool:humanNames};
+// var blank = {race:"Unknown Race", ability:[0, 0, 0, 0, 0, 0], speed:30};
+var racials = [human, highElf, rockGnome, halfOrc, mountainDwarf, hillDwarf, darkElf, woodElf, lightfootHalfling, stoutHalfling, dragonborn, forestGnome, halfElf, tiefling];
+
+var barbarian = {role:"Barbarian", primaryStat:"STR", secondaryStat:"CON", hitDice:12};
+var bard = {role:"Bard", primaryStat:"CHA", secondaryStat:"DEX", hitDice:8};
+var cleric1 = {role:"Cleric", primaryStat:"WIS", secondaryStat:"STR", hitDice:8};
+var cleric2 = {role:"Cleric", primaryStat:"WIS", secondaryStat:"CON", hitDice:8};
+var druid = {role:"Druid", primaryStat:"WIS", secondaryStat:"CON", hitDice:8};
+// var blank = {role:"Blank", primaryStat:"STR", secondaryStat:"CON", hitDice:8};
+
+var classes = [barbarian, bard, cleric1, cleric2, druid]
+var classRoll = undefined;
+
+function RollClass() {
+	classRoll = classes[Math.floor((Math.random() *classes.length))];
+}
 
 function DiceRoll() {
 	var dice = prompt("What dice do you want to roll?");
@@ -38,8 +64,8 @@ function RollGender(){
 	sex = Math.floor((Math.random() *2));
 }
 function RollName(gender){
-	var maleOrFemale = elfNames[gender];
-	var surname = elfNames[2];
+	var maleOrFemale = race.namepool[gender];
+	var surname = race.namepool[2];
 	firstName = maleOrFemale[Math.floor((Math.random() *maleOrFemale.length))];
 	lastName = surname[[Math.floor((Math.random() *surname.length))]];
 	console.log(firstName + " " + lastName);
@@ -50,16 +76,17 @@ function Dice(d) {
 }
 
 function RollRace() {
-	RollGender();
-	RollName(sex);
 	race = racials[Math.floor((Math.random() *racials.length))];
 	console.log(race);
-	document.getElementById('Race').innerHTML=race.race;
+	RollGender();
+	RollName(sex);
+	document.getElementById('Race').innerHTML="A "+race.race+" "+classRoll.role;
 	document.getElementById('Name').innerHTML=firstName+" "+lastName;
 	raceBonus = race.ability;
 }
 
 function RollAbility(){
+	RollClass();
 	RollRace();
 	var abilityScores = [];
 	var abilityModifier = [];
