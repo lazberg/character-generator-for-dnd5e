@@ -60,6 +60,16 @@ var abilityModifier = [];
 var primary = 0;
 var secondary = 0;
 
+function RollCharacter(){
+	document.getElementById('abiTable').style.display = "table";
+	ResetStats();
+	RollClass();
+	RollRace();
+	RollAbility();
+	GetHealth();
+}
+
+
 function ResetStats() {
 	cleric.secondaryStat = RandomStatPriority("STR", "CON");
 	fighter.primaryStat = RandomStatPriority("STR", "DEX");
@@ -117,14 +127,6 @@ function RollRace() {
 	document.getElementById('Race').innerHTML="A "+race.race+" "+classRoll.role;
 	document.getElementById('Name').innerHTML=firstName+" "+lastName;
 	raceBonus = race.ability;
-}
-
-function RollCharacter(){
-	ResetStats();
-	RollClass();
-	RollRace();
-	RollAbility();
-	GetHealth();
 }
 
 function RollAbility(){
