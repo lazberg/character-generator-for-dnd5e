@@ -12,9 +12,9 @@
 		#wrapper{
 			background:rgba(255,255,255,0.75);
 			width:500px;
-			min-height:500px;
+			min-height:0px;
 			margin:0 auto 0 auto;
-			padding:20px;
+			padding:30px 20px 20px 20px;
 			text-align:center;
 			border-radius:10px;
 		}
@@ -35,12 +35,6 @@
 			border-width:2px;
 			background:white;
 			margin:0 auto 0 auto;
-		}
-		h1 {
-			height:40px;
-		}
-		h2 {
-			height:30px;
 		}
 		button {
 			background-color: maroon;
@@ -64,7 +58,7 @@
 <button value="Roll Ability" onclick="RollCharacter()" style="vertical-align:middle;">Summon Character!</button><img style="vertical-align:middle;margin-left:10px;" src="aust.gif"/>
 <h1 id="Name"></h1>
 <h2 id="Race"></h1>
-<table id="abiTable">
+<table id="abiTable" style="display:none;">
 	<tr>
 	<th>Ability</th>
 	<th>Score</th>
