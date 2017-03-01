@@ -1,7 +1,10 @@
+//various stats?
+var hp = 0;
+var sex = 0;
+
 // NAMES
 var firstName = "No";
 var lastName = "Face";
-var sex = 0;
 var namePool = [elfNames, humanNames, dwarfNames]
 var elfMale = ["Adran", "Aelar", "Aramil", "Arannis", "Aust"];
 var elfFemale = ["Adrie", "Althaea", "Anastrianna", "Andraste", "Antinua"];
@@ -97,7 +100,7 @@ function RollName(gender){
 	var surname = race.namepool[2];
 	firstName = maleOrFemale[Math.floor((Math.random() *maleOrFemale.length))];
 	lastName = surname[[Math.floor((Math.random() *surname.length))]];
-	console.log(firstName + " " + lastName);
+	//console.log(firstName + " " + lastName);
 }
 
 function Dice(d) {
@@ -108,7 +111,7 @@ function Dice(d) {
 function RollRace() {
 	// Rolls race, gender and name, as well as making the variable of racebonus set to specific race.
 	race = racials[Math.floor((Math.random() *racials.length))];
-	console.log(race);
+	//console.log(race);
 	RollGender();
 	RollName(sex);
 	document.getElementById('Race').innerHTML="A "+race.race+" "+classRoll.role;
@@ -116,12 +119,18 @@ function RollRace() {
 	raceBonus = race.ability;
 }
 
-function RollAbility(){
-	// For now rolls entire character.
-	// code mostly rolls ability scores and determines ability modifiers.
+function RollCharacter(){
 	ResetStats();
 	RollClass();
 	RollRace();
+	RollAbility();
+	GetHealth();
+}
+
+function RollAbility(){
+	// For now rolls entire character.
+	// code mostly rolls ability scores and determines ability modifiers.
+	//document.getElementById('abiTable').style.display="table";
 	abilityScores = [];
 	abilityModifier = [];
 	primary = 0;
@@ -136,16 +145,18 @@ function RollAbility(){
 		roll2 = Dice(6);
 		roll3 = Dice(6);
 		roll4 = Dice(6);
-		rollTotal = roll1+roll2+roll3+roll4-Math.min(roll1,roll2,roll3,roll4)+raceBonus[i];
+		rollTotal = roll1+roll2+roll3+roll4-Math.min(roll1,roll2,roll3,roll4)/*+raceBonus[i]*/;
 		abilityScores.push(rollTotal);
 	}
-	
 	primary = Math.max(abilityScores[0], abilityScores[1], abilityScores[2], abilityScores[3], abilityScores[4], abilityScores[5] );
 	abilityScores.splice(abilityScores.indexOf(primary), 1);
 
 	secondary = Math.max(abilityScores[0], abilityScores[1], abilityScores[2], abilityScores[3], abilityScores[4] );
 	abilityScores.splice(abilityScores.indexOf(secondary), 1);
-	getPrimary();
+	GetPrimary();
+	console.log(abilityScores);
+	AddArrays(abilityScores, raceBonus);
+	console.log(abilityScores);
 	
 	document.getElementById('Str').innerHTML = abilityScores[0];
 	document.getElementById('Dex').innerHTML = abilityScores[1];
@@ -164,7 +175,14 @@ function RollAbility(){
 	document.getElementById('WisMod').innerHTML = abilityModifier[4];
 	document.getElementById('ChaMod').innerHTML = abilityModifier[5];
 }
-function findStatNumber(ability) {
+
+function AddArrays(array1, array2) {
+	for(var i =0;i<array1.length;i++) {
+		array1[i] += array2[i];
+	}
+}
+
+function FindStatNumber(ability) {
 	if (ability=="STR"){
 		return 0;
 	}
@@ -184,9 +202,9 @@ function findStatNumber(ability) {
 		return 5;
 	}
 }
-function getPrimary() {
-	var primaryNum = findStatNumber(classRoll.primaryStat);
-	var secondaryNum = findStatNumber(classRoll.secondaryStat);
+function GetPrimary() {
+	var primaryNum = FindStatNumber(classRoll.primaryStat);
+	var secondaryNum = FindStatNumber(classRoll.secondaryStat);
 	
 	if (primaryNum < secondaryNum){
 		abilityScores.splice(primaryNum, 0, primary);
@@ -197,6 +215,11 @@ function getPrimary() {
 		abilityScores.splice(primaryNum, 0, primary);
 	}
 	
+}
+
+function GetHealth() {
+	hp = classRoll.hitDice+abilityModifier[2];
+	document.getElementById('health').innerHTML = "HP: "+hp;
 }
 
 function GetModifier(score) {
